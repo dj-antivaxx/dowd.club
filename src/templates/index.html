@@ -1,0 +1,54 @@
+<!-- templates/base.html -->
+
+<!DOCTYPE html>
+
+<html>
+
+<body style="font-family: Arial, sans-serif"> 
+    <div class="center-screen">
+        <a>wake up, neo</a>
+        <div style="height: 100px;"></div>
+        <form method="post" enctype="multipart/form-data" novalidate>
+            <div class="form-group">
+                {{ form.name(size=20) }}
+                {% for error in form.name.errors %}
+                        <br>
+                        <span style="color: red;">{{ error }}</span>
+                        <br>
+                {% endfor %}
+                <br>
+                {{ form.referral(size=20) }}
+                {% for error in form.referral.errors %}
+                        <br>
+                        <span style="color: red;">{{ error }}</span>
+                        <br>
+                {% endfor %}
+                <br>
+                {{ form.email(size=20) }}
+                {% for error in form.email.errors %}
+                        <br>
+                        <span style="color: red;">{{ error }}</span>
+                        <br>
+                {% endfor %}
+                <br>
+            </div>
+            <br>
+            {{ form.submit() }}
+            <div style="height: 100px;"></div>
+            <tt>github.com/dj-antivaxx/dowd.club</tt>
+        </div>
+    </form>
+</body>
+
+<style>
+    .center-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+  }
+</style>
+
+</html>
