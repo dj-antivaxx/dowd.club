@@ -17,8 +17,23 @@ def create_rsvp_schema(connection):
     """
     connection.executescript(schema_rsvp)
 
+def create_feedback_schema(connection):
+    schema_feedback = """
+    CREATE TABLE FEEDBACK (
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        FEEDBACK TEXT NOT NULL
+    );
+    """
+    connection.executescript(schema_feedback)
+
 def insert_to_rsvp_schema(name, referral, email):
     connection = get_db_connection()
     connection.execute("INSERT INTO RSVP VALUES (NULL, ?, ?, ?)", (name, referral, email))
+    connection.commit()
+    connection.close()
+
+def insert_to_feedback_schema(feedback):
+    connection = get_db_connection()
+    connection.execute("INSERT INTO FEEDBACK VALUES (NULL, ?)", (feedback, ))
     connection.commit()
     connection.close()

@@ -6,11 +6,26 @@
 
 <body style="font-family: Arial, sans-serif"> 
     <div class="center-screen">
+        <a>wake up, neo</a>
         <div style="height: 100px;"></div>
         <form method="post" enctype="multipart/form-data" novalidate>
             <div class="form-group">
-                {{ form.feedback(size=1000) }}
-                {% for error in form.feedback.errors %}
+                {{ form.name(size=20) }}
+                {% for error in form.name.errors %}
+                        <br>
+                        <span style="color: red;">{{ error }}</span>
+                        <br>
+                {% endfor %}
+                <br>
+                {{ form.referral(size=20) }}
+                {% for error in form.referral.errors %}
+                        <br>
+                        <span style="color: red;">{{ error }}</span>
+                        <br>
+                {% endfor %}
+                <br>
+                {{ form.email(size=20) }}
+                {% for error in form.email.errors %}
                         <br>
                         <span style="color: red;">{{ error }}</span>
                         <br>
