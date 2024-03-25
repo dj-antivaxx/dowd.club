@@ -4,14 +4,15 @@ import sqlite3
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-from blueprints import home
-from database import create_rsvp_schema
+from blueprints import home, rsvp_blueprint
+from database import create_rsvp_schema, create_feedback_schema
 
 if __name__ == '__main__':
     app = Flask(__name__)
     app.debug = True
 
     app.register_blueprint(home)
+    app.register_blueprint(rsvp_blueprint)
 
     os.makedirs('./artifacts', exist_ok=True)
 
@@ -27,6 +28,10 @@ if __name__ == '__main__':
         connection.execute("SELECT * FROM RSVP;")
     except sqlite3.OperationalError:
         create_rsvp_schema(connection)
+    try:
+        connection.execute("SELECT * FROM FEEDBACK;")
+    except sqlite3.OperationalError:
+        create_feedback_schema(connection)
     
     db = SQLAlchemy()
     db.init_app(app)
