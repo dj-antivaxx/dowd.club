@@ -21,7 +21,8 @@ def create_feedback_schema(connection):
     schema_feedback = """
     CREATE TABLE FEEDBACK (
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
-        FEEDBACK TEXT NOT NULL
+        FEEDBACK TEXT NOT NULL,
+        FEEDBACKTIME TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
     """
     connection.executescript(schema_feedback)
@@ -34,6 +35,6 @@ def insert_to_rsvp_schema(name, referral, email):
 
 def insert_to_feedback_schema(feedback):
     connection = get_db_connection()
-    connection.execute("INSERT INTO FEEDBACK VALUES (NULL, ?)", (feedback, ))
+    connection.execute("INSERT INTO FEEDBACK VALUES (NULL, ?, CURRENT_TIMESTAMP)", (feedback, ))
     connection.commit()
     connection.close()
