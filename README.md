@@ -31,11 +31,13 @@ then clone this project (dowd.club) to ur machine and build the container:
 docker build . -t dowd:1
 ```
 
-do `docker ps` to checko the containero id and then:
+do `docker images` to checko the image id and then:
 
 ```
-docker run -dit -p 5000:5000 <urcontainerid>
+docker run -dit -p 5000:5000 <urimageid>
 ```
+
+the website will be running at port 5000
 
 in case something goes wrong - `docker ps -a` shows stopped containers, and u can copy the logs to a local text file like `logs.txt` via `docker cp <urcontainerid>:/home/tmp/report logs.txt` (works even if the container is stopped). 
 
