@@ -2,10 +2,20 @@ from flask import Blueprint, render_template, request
 from wtforms import Form, SubmitField, TextAreaField, validators
 
 
-from database import insert_to_rsvp_schema, insert_to_feedback_schema
+from database import insert_to_rsvp_schema, insert_to_feedback_schema, insert_to_email_schema
 
 home = Blueprint('home', __name__)
 rsvp_blueprint = Blueprint('rsvp', __name__)
+feedback_blueprint = Blueprint('feedback', __name__)
+
+
+class EmailForm(Form):
+    email = TextAreaField('ur email', validators=[
+        validators.InputRequired(message="??"), 
+        validators.Length(min=5, message="too short!"), 
+        validators.Length(max=30, message="too long!")],
+        render_kw={'rows': 1, 'cols': 20, 'style':'resize:none;', 'placeholder': 'email'})
+    submit = SubmitField('subscribe', render_kw={'style':"border:none; background: lightgrey;"})
 
 class RSVPForm(Form):
     name = TextAreaField('name / alias', validators=[
@@ -45,13 +55,24 @@ def rsvp():
         
     return render_template('rsvp.html', form=form)
 
-@home.route('/', methods=('GET', 'POST'))
+@feedback_blueprint.route('/feedback', methods=('GET', 'POST'))
 def index():
     form = FeedbackForm(request.form)
     
     if request.method == 'POST' and form.validate():
-        print(form.feedback)
         insert_to_feedback_schema(form.feedback.data)
         return render_template('success.html')      
         
+    return render_template('feedback.html', form=form)
+
+@home.route('/', methods=('GET', 'POST'))
+def index():
+    form = EmailForm(request.form)
+    
+    if request.method == 'POST' and form.validate():
+        insert_to_email_schema(form.email.data)
+        return render_template('success.html')      
+        
     return render_template('index.html', form=form)
+
+

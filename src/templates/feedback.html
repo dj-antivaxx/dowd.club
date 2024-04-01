@@ -4,28 +4,22 @@
 
 <html>
 
-<head>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
-</head>
-
 <body style="font-family: Arial, sans-serif"> 
     <div class="center-screen">
-        <a>wanna see how deep does the rabbit hole go?</a>
         <div style="height: 100px;"></div>
         <form method="post" enctype="multipart/form-data" novalidate>
-            <img src="static/beznogim.gif" width="150px" height="150px">
-            <div style="height: 20px;"></div>
             <div class="form-group">
-                {{ form.email(size=20) }}
-                {% for error in form.email.errors %}
+                {{ form.feedback(size=1000) }}
+                {% for error in form.feedback.errors %}
                         <br>
                         <span style="color: red;">{{ error }}</span>
                         <br>
                 {% endfor %}
+                <br>
             </div>
-            <div style="height: 20px;"></div>
+            <br>
             {{ form.submit() }}
-            <div style="height: 120px;"></div>
+            <div style="height: 100px;"></div>
             <tt>github.com/dj-antivaxx/dowd.club</tt>
         </div>
     </form>
